@@ -1,0 +1,4 @@
+@import './styles/global.styles.css';
+@import './components/index.css';
+
+@import '../features/index.css';

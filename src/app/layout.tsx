@@ -1,4 +1,12 @@
-import '@ui/index.scss';
+import '../ui/index.css';
+
+import { NextUIProvider } from '@nextui-org/react';
+
+type ProvidersType = { children: React.ReactNode };
+
+export function Providers({ children }: Readonly<ProvidersType>) {
+  return <NextUIProvider>{children}</NextUIProvider>;
+}
 
 export default function RootLayout({
   children,
@@ -7,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
