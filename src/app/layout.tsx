@@ -1,3 +1,4 @@
+import { TopMenu } from '@/ui';
 import '../ui/index.css';
 
 import { NextUIProvider } from '@nextui-org/react';
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <TopMenu />
+          {children}
+        </Providers>
       </body>
     </html>
   );
