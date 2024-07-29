@@ -4,14 +4,27 @@ import React from 'react';
 
 import { Button } from '@nextui-org/button';
 
-import { NameCompany } from '@/ui';
-import { infoSheets } from '@/services/sheets/get-tittle';
+import { Chart, NameCompany } from '@/ui';
+import { getTitle } from '@/services/sheets/get-tittle';
+import { getData } from '@/services/sheets/get-data';
+
+const getRowsSheets = async () => {
+  try {
+    const data = await getData();
+    console.log(data, ' data');
+    // return transformData(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const Home = () => {
-  const getInfosSheets = async () => {
-    console.log('get');
-    await infoSheets();
-  };
+  const [chartData, setChartData] = React.useState({ labels: [], values: [] });
+
+  React.useEffect(() => {
+    const rows = getRowsSheets();
+    // setChartData(rows);
+  }, []);
 
   return (
     <div>
@@ -20,11 +33,20 @@ const Home = () => {
       <Button
         className='btn-custom'
         onClick={() => {
-          getInfosSheets();
+          getTitle();
         }}
       >
-        testee
+        Titulo da tabela
       </Button>
+      <Button
+        className='btn-custom'
+        onClick={() => {
+          getData();
+        }}
+      >
+        Dados da tabela
+      </Button>
+      {/* <Chart data={chartData} /> */}
     </div>
   );
 };
