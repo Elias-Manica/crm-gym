@@ -17,7 +17,7 @@ import {
 
 import type { MenuItemType, MenuLinkTypes } from './TopMenu.types';
 
-import { ClientsIcon, GearIcon, HomeIcon } from '@/ui';
+import { ClientsIcon, GearIcon, HomeIcon } from '@ui/icons';
 
 const MENU_ITEMS: MenuItemType[] = [
   { name: 'Página inicial', href: '#', icon: <HomeIcon /> },
