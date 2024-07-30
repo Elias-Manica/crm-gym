@@ -11,6 +11,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.4.3",
     "chart.js": "^4.4.3",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.3.6",
     "google-auth-library": "^9.11.0",
     "google-spreadsheet": "^4.1.2",

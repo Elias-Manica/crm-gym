@@ -2,51 +2,48 @@
 
 import React from 'react';
 
-import { Button } from '@nextui-org/button';
-
-import { Chart, NameCompany } from '@/ui';
-import { getTitle } from '@/services/sheets/get-tittle';
+import { Chart, ChartData, ChartsTypes } from '@/ui';
 import { getData } from '@/services/sheets/get-data';
+import { getQtdClientsByMonth } from '@/utils/functions';
 
 const getRowsSheets = async () => {
   try {
     const data = await getData();
-    console.log(data, ' data');
-    // return transformData(rows);
+    return data;
   } catch (error) {
-    console.log(error);
+    return [];
   }
 };
 
 const Home = () => {
-  const [chartData, setChartData] = React.useState({ labels: [], values: [] });
+  const [chartData, setChartData] = React.useState<ChartData>({
+    labels: [],
+    values: [],
+  });
+  const [chartType, setChartType] = React.useState<ChartsTypes>('bar');
 
   React.useEffect(() => {
-    const rows = getRowsSheets();
-    // setChartData(rows);
+    const fetchData = async () => {
+      const rows = await getRowsSheets();
+      const dataClientsPerMonth = getQtdClientsByMonth(rows);
+      setChartData(dataClientsPerMonth);
+    };
+
+    fetchData();
   }, []);
+
+  const handleChartTypeChange = (event: any) => {
+    setChartType(event.target.value);
+  };
 
   return (
     <div>
-      Home
-      <NameCompany />
-      <Button
-        className='btn-custom'
-        onClick={() => {
-          getTitle();
-        }}
-      >
-        Titulo da tabela
-      </Button>
-      <Button
-        className='btn-custom'
-        onClick={() => {
-          getData();
-        }}
-      >
-        Dados da tabela
-      </Button>
-      {/* <Chart data={chartData} /> */}
+      <select value={chartType} onChange={handleChartTypeChange}>
+        <option value='line'>Line</option>
+        <option value='bar'>Bar</option>
+        <option value='pie'>Pie</option>
+      </select>
+      <Chart data={chartData} type={chartType} />
     </div>
   );
 };

@@ -1,13 +1,14 @@
 'use server';
 
 import { doc } from '../api/connect-sheets';
+import { RowsTypes } from './sheets.types';
 
 async function getData() {
   try {
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[0];
     const rows = await sheet.getRows();
-    const transformedRows = rows.map((item) => ({
+    const transformedRows: RowsTypes[] = rows.map((item) => ({
       name: item.get('Nome'),
       age: item.get('Idade'),
       start: item.get('Data de inicio'),
