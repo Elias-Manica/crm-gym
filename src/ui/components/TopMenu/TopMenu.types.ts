@@ -1,7 +1,9 @@
+import { IconType } from 'react-icons';
+
 export type MenuItemType = {
   name: string;
   href: string;
-  icon?: React.ReactNode;
+  icon?: IconType;
 };
 
 export type MenuLinkTypes = {

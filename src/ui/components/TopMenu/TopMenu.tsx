@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { FiHome, FiUsers, FiSettings } from 'react-icons/fi';
+
 import {
   Navbar,
   NavbarBrand,
@@ -17,12 +19,10 @@ import {
 
 import type { MenuItemType, MenuLinkTypes } from './TopMenu.types';
 
-import { ClientsIcon, GearIcon, HomeIcon } from '@ui/icons';
-
 const MENU_ITEMS: MenuItemType[] = [
-  { name: 'Página inicial', href: '#', icon: <HomeIcon /> },
-  { name: 'Alunos', href: '#', icon: <ClientsIcon /> },
-  { name: 'Configurações', href: '#', icon: <GearIcon /> },
+  { name: 'Página inicial', href: '#', icon: FiHome },
+  { name: 'Alunos', href: '#', icon: FiUsers },
+  { name: 'Configurações', href: '#', icon: FiSettings },
 ];
 
 const Brand = () => (
@@ -42,24 +42,29 @@ const MenuLinks = ({
 }: MenuLinkTypes) => {
   return (
     <>
-      {listMenuItems?.map((item, index) => (
-        <NavbarItem
-          key={`${item.name}-${index}`}
-          isActive={item.name === activeItem}
-          className='flex items-center'
-        >
-          <Link
-            color='foreground'
-            href={item.href}
-            onClick={() => setActiveItem(item.name)}
+      {listMenuItems?.map((item, index) => {
+        const IconComponent = item.icon;
+        return (
+          <NavbarItem
+            key={`${item.name}-${index}`}
+            isActive={item.name === activeItem}
+            className='flex items-center'
           >
-            <div className='flex gap-1'>
-              {item?.icon || null}
-              {item.name}
-            </div>
-          </Link>
-        </NavbarItem>
-      ))}
+            <Link
+              color='foreground'
+              href={item.href}
+              onClick={() => setActiveItem(item.name)}
+            >
+              <div className='flex gap-2 items-center'>
+                {IconComponent && (
+                  <IconComponent size={item.name === activeItem ? 20 : 15} />
+                )}
+                {item.name}
+              </div>
+            </Link>
+          </NavbarItem>
+        );
+      })}
     </>
   );
 };
@@ -98,28 +103,33 @@ const TopMenu = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        {MENU_ITEMS.map((item, index) => (
-          <NavbarMenuItem
-            key={`${item.name}-${index}`}
-            isActive={item.name === activeItem}
-          >
-            <Link
-              className='w-full'
-              size='lg'
-              color='foreground'
-              href={item.href}
-              onClick={() => {
-                setActiveItem(item.name);
-                setIsMenuOpen(false);
-              }}
+        {MENU_ITEMS.map((item, index) => {
+          const IconComponent = item.icon;
+          return (
+            <NavbarMenuItem
+              key={`${item.name}-${index}`}
+              isActive={item.name === activeItem}
             >
-              <div className='flex gap-1'>
-                {item?.icon || null}
-                {item.name}
-              </div>
-            </Link>
-          </NavbarMenuItem>
-        ))}
+              <Link
+                className='w-full'
+                size='lg'
+                color='foreground'
+                href={item.href}
+                onClick={() => {
+                  setActiveItem(item.name);
+                  setIsMenuOpen(false);
+                }}
+              >
+                <div className='flex gap-1 items-center'>
+                  {IconComponent && (
+                    <IconComponent size={item.name === activeItem ? 20 : 15} />
+                  )}
+                  {item.name}
+                </div>
+              </Link>
+            </NavbarMenuItem>
+          );
+        })}
       </NavbarMenu>
     </Navbar>
   );
