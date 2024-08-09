@@ -14,6 +14,7 @@ async function getData() {
       start: item.get('Data de inicio'),
       price: item.get('Preço Plano'),
       active: item.get('Pago'),
+      lastPayment: item.get('Data do último pagamento'),
     }));
     return transformedRows;
   } catch (error) {

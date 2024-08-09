@@ -4,4 +4,5 @@ export type RowsTypes = {
   start: string;
   price: string | number;
   active: string | boolean;
+  lastPayment: string;
 };

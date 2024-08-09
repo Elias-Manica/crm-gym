@@ -15,6 +15,7 @@ import {
   Link,
   Button,
   Image,
+  Divider,
 } from '@nextui-org/react';
 
 import type { MenuItemType, MenuLinkTypes } from './TopMenu.types';
@@ -74,64 +75,74 @@ const TopMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
-    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent>
-        <NavbarMenuToggle className='sm:hidden' />
-        <Brand />
-      </NavbarContent>
+    <>
+      <Navbar
+        isBordered
+        isMenuOpen={isMenuOpen}
+        onMenuOpenChange={setIsMenuOpen}
+        className='bg-white'
+      >
+        <NavbarContent>
+          <NavbarMenuToggle className='sm:hidden' />
+          <Brand />
+        </NavbarContent>
 
-      <NavbarContent className='hidden sm:flex gap-4' justify='center'>
-        <MenuLinks
-          listMenuItems={MENU_ITEMS}
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
-        />
-      </NavbarContent>
+        <NavbarContent className='hidden sm:flex gap-4' justify='center'>
+          <MenuLinks
+            listMenuItems={MENU_ITEMS}
+            activeItem={activeItem}
+            setActiveItem={setActiveItem}
+          />
+        </NavbarContent>
 
-      <NavbarContent justify='end'>
-        <NavbarItem>
-          <Button
-            as={Link}
-            color='primary'
-            href='#'
-            variant='light'
-            className='text-black'
-          >
-            Desconectar
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarMenu>
-        {MENU_ITEMS.map((item, index) => {
-          const IconComponent = item.icon;
-          return (
-            <NavbarMenuItem
-              key={`${item.name}-${index}`}
-              isActive={item.name === activeItem}
+        <NavbarContent justify='end'>
+          <NavbarItem>
+            <Button
+              as={Link}
+              color='primary'
+              href='#'
+              variant='light'
+              className='text-black'
             >
-              <Link
-                className='w-full'
-                size='lg'
-                color='foreground'
-                href={item.href}
-                onClick={() => {
-                  setActiveItem(item.name);
-                  setIsMenuOpen(false);
-                }}
+              Desconectar
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+
+        <NavbarMenu>
+          {MENU_ITEMS.map((item, index) => {
+            const IconComponent = item.icon;
+            return (
+              <NavbarMenuItem
+                key={`${item.name}-${index}`}
+                isActive={item.name === activeItem}
               >
-                <div className='flex gap-1 items-center'>
-                  {IconComponent && (
-                    <IconComponent size={item.name === activeItem ? 20 : 15} />
-                  )}
-                  {item.name}
-                </div>
-              </Link>
-            </NavbarMenuItem>
-          );
-        })}
-      </NavbarMenu>
-    </Navbar>
+                <Link
+                  className='w-full'
+                  size='lg'
+                  color='foreground'
+                  href={item.href}
+                  onClick={() => {
+                    setActiveItem(item.name);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <div className='flex gap-1 items-center'>
+                    {IconComponent && (
+                      <IconComponent
+                        size={item.name === activeItem ? 20 : 15}
+                      />
+                    )}
+                    {item.name}
+                  </div>
+                </Link>
+              </NavbarMenuItem>
+            );
+          })}
+        </NavbarMenu>
+      </Navbar>
+      <Divider />
+    </>
   );
 };
 

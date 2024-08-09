@@ -4,4 +4,5 @@ export type CardType = {
   label: string;
   number: string;
   icon?: IconKey;
+  textTooltip: string;
 };

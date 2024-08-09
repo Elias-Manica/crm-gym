@@ -1,4 +1,4 @@
-import { Card, CardBody } from '@nextui-org/react';
+import { Card, CardBody, Tooltip } from '@nextui-org/react';
 
 import {
   FiTrendingUp,
@@ -16,19 +16,26 @@ const iconMap: Record<IconKey, React.ReactNode> = {
   new: <FiUserPlus size={30} color='green' />,
 };
 
-const CardHome = ({ label, number, icon = 'up' }: CardType) => {
+const CardHome = ({
+  label,
+  number,
+  textTooltip = '',
+  icon = 'up',
+}: CardType) => {
   return (
-    <Card className='w-64 m-3'>
-      <CardBody className='justify-center'>
-        <div className='flex justify-between items-center'>
-          <div className='items-center'>
-            <p className='text-tiny uppercase font-bold'>{label}</p>
-            <p className='font-bold text-large'>{number}</p>
+    <Tooltip content={textTooltip}>
+      <Card className='w-64 m-3'>
+        <CardBody className='justify-center'>
+          <div className='flex justify-between items-center'>
+            <div className='items-center'>
+              <p className='text-tiny uppercase font-bold'>{label}</p>
+              <p className='font-bold text-large'>{number}</p>
+            </div>
+            {iconMap[icon]}
           </div>
-          {iconMap[icon]}
-        </div>
-      </CardBody>
-    </Card>
+        </CardBody>
+      </Card>
+    </Tooltip>
   );
 };
 
